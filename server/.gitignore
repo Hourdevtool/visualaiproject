@@ -9,5 +9,4 @@ uploads/
 # Virtual environments
 .venv
 
-.env.example
 .env
