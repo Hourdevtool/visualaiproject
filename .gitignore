@@ -1,0 +1,33 @@
+# Environment variables & secrets (CRITICAL)
+.env*
+!.env.example
+*.pem
+*.key
+
+# Database & Uploads
+mysql_data/
+server/uploads/
+uploads/
+
+# Model Weights
+*.pt
+*.onnx
+
+# Node & Next.js
+node_modules/
+client/.next/
+client/out/
+client/build/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[oc]
+server/.venv/
+.venv/
+
+# System & Agent artifacts
+.agents/
+skills-lock.json
+.DS_Store
+Thumbs.db

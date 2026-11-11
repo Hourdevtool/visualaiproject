@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+:root {
+  /* 1. Base Colors */
+  --surface: #131313;
+  --surface-container-lowest: #000000;
+  --surface-container-low: #1b1b1b;
+  --surface-container: #222222;
+  --surface-container-high: rgba(42, 42, 42, 0.8); /* With alpha for glassmorphism */
+  --surface-container-highest: #353535;
+
+  --primary: #ffb1c5;
+  --on-primary: #131313;
+  --primary-container: #ff0080; 
+  --secondary-container: #6f6f6f;
+  
+  --surface-variant: #2d2d2d;
+  --outline-variant: rgba(255, 255, 255, 0.15); /* 15% opacity ghost border */
+  
+  --inverse-surface: #e2e2e2;
+  --inverse-on-surface: #131313;
+
+  background-color: var(--surface);
+  color: #e2e2e2; /* Default text color, off-white */
+}
+
+/* 2. Typography */
+.display-lg {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.headline-lg {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.body-md {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.label-md {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.label-sm {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* 3. Utilities & System Rules */
+.glass-panel {
+  background-color: var(--surface-container-high);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.ghost-border {
+  border: 1px solid var(--outline-variant);
+}
+
+.shadow-ambient {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* 4. Components */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px; /* xl radius */
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  color: var(--on-primary);
+  box-shadow: 0 4px 15px rgba(255, 177, 197, 0.2);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(255, 177, 197, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-container);
+  color: #fff;
+}
+
+.btn-tertiary {
+  background-color: transparent;
+  color: var(--primary);
+}
+
+.btn-tertiary:hover {
+  background-color: var(--surface-variant);
+}
+
+.input-field {
+  background-color: var(--surface-container-highest);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: #e2e2e2;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.input-field:focus {
+  box-shadow: 0 0 0 2px rgba(255, 177, 197, 0.3); /* 2px outer glow of primary at 30% opacity */
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--surface-container-high);
+  border-radius: 9999px;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.75rem;
+  color: #e2e2e2;
+}
+
+.tooltip {
+  background-color: var(--inverse-surface);
+  color: var(--inverse-on-surface);
+  border-radius: 2px; /* sm radius */
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.875rem;
+}
+
+@keyframes gridTrailFade {
+  0% { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.5); }
+}
+
+.animate-grid-trail {
+  animation: gridTrailFade 0.8s ease-out forwards;
+}

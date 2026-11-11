@@ -1,0 +1,31 @@
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: visuai_backend
+    restart: always
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./server/uploads:/app/uploads
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    env_file:
+      - ./server/.env
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=https://service.npc.ac.th/visuai_backend
+        - NEXT_PUBLIC_BASE_PATH=/visuai
+    container_name: visuai_frontend
+    restart: always
+    ports:
+      - "3008:3000"
+    env_file:
+      - ./client/.env.production
+    depends_on:
+      - backend

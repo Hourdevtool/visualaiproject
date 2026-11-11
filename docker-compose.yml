@@ -1,0 +1,27 @@
+services:
+
+  database:
+      image: mysql:8
+      container_name: mysql_db_visaai
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: visuai
+      ports:
+        - "3306:3306"
+      volumes:
+        - ./mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+      image: phpmyadmin
+      container_name: phpmyadmin_visaai
+      ports:
+        - "8080:80"
+      environment:
+        PMA_HOST: database
+        MYSQL_ROOT_PASSWORD: root
+      depends_on:
+        - database     
+
+
+  

@@ -1,0 +1,28 @@
+FROM python:3.13-slim
+
+WORKDIR /app
+
+# Install system libraries needed by OpenCV, Pillow, and YOLO
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libglib2.0-0 \
+    libgomp1 \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install uv package manager
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+# Install python dependencies
+COPY pyproject.toml uv.lock* ./
+RUN uv sync --frozen --no-cache
+
+# Copy project source code
+COPY . .
+
+# Ensure uploads directory exists
+RUN mkdir -p uploads
+
+EXPOSE 8000
+
+CMD ["uv", "run", "fastapi", "run", "app/main.py", "--host", "0.0.0.0", "--port", "8000"]
