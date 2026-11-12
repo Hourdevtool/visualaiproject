@@ -24,7 +24,8 @@ async def lifespan(app: FastAPI):
     # Shutdown
     pass
 
-app = FastAPI(lifespan=lifespan)
+root_path = os.getenv("ROOT_PATH", "/visuai_backend")
+app = FastAPI(lifespan=lifespan, root_path=root_path)
 
 # Rate limiting setup
 app.state.limiter = limiter
