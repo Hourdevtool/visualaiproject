@@ -29,6 +29,8 @@ async function refreshAccessToken(token: any) {
   }
 }
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
@@ -65,7 +67,7 @@ export const authOptions: NextAuthOptions = {
           (user as any).backendTokens = data;
           return true;
         } catch (error: any) {
-          return `/login?error=${encodeURIComponent(error.message)}`;
+          return `${basePath}/login?error=${encodeURIComponent(error.message)}`;
         }
       }
       return true;
@@ -118,8 +120,8 @@ export const authOptions: NextAuthOptions = {
     }
   },
   pages: {
-    signIn: '/login',
-    error: '/login',
+    signIn: `${basePath}/login`,
+    error: `${basePath}/login`,
   },
   session: {
     strategy: "jwt"

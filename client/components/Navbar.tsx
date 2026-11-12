@@ -260,12 +260,12 @@ export function Navbar() {
             </AnimatePresence>
           </div>
         ) : (
-          <button
-            onClick={() => signIn()}
+          <Link
+            href="/login"
             className="px-4 py-2 text-xs font-bold tracking-widest text-black bg-[var(--primary)] rounded-lg uppercase hover:scale-105 transition-transform"
           >
             {t('login.title') || 'Login'}
-          </button>
+          </Link>
         )}
       </div>
     </nav>
