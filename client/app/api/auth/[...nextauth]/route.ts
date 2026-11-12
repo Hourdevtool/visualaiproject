@@ -2,9 +2,12 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
+const API_URL = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 async function refreshAccessToken(token: any) {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000'}/api/auth/refresh`, {
+    const res = await fetch(`${API_URL}/api/auth/refresh`, {
       method: 'POST',
       headers: {
         'Cookie': `re=${token.refreshToken}`
@@ -29,24 +32,28 @@ async function refreshAccessToken(token: any) {
   }
 }
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-
 export const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
+      clientId: (process.env.GITHUB_ID || "").trim(),
+      clientSecret: (process.env.GITHUB_SECRET || "").trim(),
+      httpOptions: {
+        timeout: 10000,
+      },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: (process.env.GOOGLE_CLIENT_ID || "").trim(),
+      clientSecret: (process.env.GOOGLE_CLIENT_SECRET || "").trim(),
+      httpOptions: {
+        timeout: 10000,
+      },
     })
   ],
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === 'google' || account?.provider === 'github') {
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000'}/api/auth/login`, {
+          const res = await fetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -81,7 +88,7 @@ export const authOptions: NextAuthOptions = {
         token.accessTokenExpires = Date.now() + 14 * 60 * 1000; // 14 mins
 
         try {
-          const meRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000'}/api/auth/me`, {
+          const meRes = await fetch(`${API_URL}/api/auth/me`, {
               method: 'POST',
               headers: {
                   'Authorization': `Bearer ${token.accessToken}`

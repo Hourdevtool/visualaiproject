@@ -6,11 +6,15 @@ services:
     container_name: visuai_backend
     restart: always
     ports:
-      - "8001:8000"
+      - "8005:8000"
     volumes:
       - ./server/uploads:/app/uploads
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 1.1.1.1
     env_file:
       - ./server/.env
 
@@ -25,6 +29,12 @@ services:
     restart: always
     ports:
       - "3008:3000"
+    environment:
+      - INTERNAL_API_URL=http://backend:8000
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 1.1.1.1
     env_file:
       - ./client/.env.production
     depends_on:

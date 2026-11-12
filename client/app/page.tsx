@@ -5,6 +5,8 @@ import { useLanguage } from "../providers/LanguageProvider";
 import { motion, Variants } from "framer-motion";
 import { useRef, useState } from "react";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -79,7 +81,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-r from-[var(--surface)] via-[var(--surface)]/80 to-transparent z-20 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--surface)] via-transparent to-transparent z-20 pointer-events-none" />
             <Image
-              src="/images/hero.png"
+              src={`${BASE_PATH}/images/hero.png`}
               alt="Hero Background"
               fill
               className="object-cover object-right-top opacity-40 mix-blend-luminosity z-0"
@@ -191,7 +193,7 @@ export default function Home() {
               className="lg:col-span-5 relative rounded-3xl overflow-hidden group cursor-pointer border border-[var(--outline-variant)] min-h-[500px] shadow-2xl"
             >
               <Image
-                src="/images/tokyo.png"
+                src={`${BASE_PATH}/images/tokyo.png`}
                 alt="Tokyo Midnight 2077"
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-110 group-hover:rotate-1"
@@ -217,7 +219,7 @@ export default function Home() {
             <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Top Row Cards */}
               <motion.div whileHover={{ y: -5, scale: 1.02 }} className="relative rounded-3xl overflow-hidden group cursor-pointer border border-[var(--outline-variant)] h-[240px]">
-                <Image src="/images/orbital.png" alt="Orbital Path V2" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <Image src={`${BASE_PATH}/images/orbital.png`} alt="Orbital Path V2" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-black/10" />
                 <div className="absolute bottom-0 left-0 p-6 z-10">
                   <div className="text-[10px] font-bold tracking-widest text-[var(--primary)] mb-2 uppercase flex items-center"><Activity size={12} className="mr-1" /> {t('projects.card2.badge')}</div>
@@ -226,7 +228,7 @@ export default function Home() {
               </motion.div>
 
               <motion.div whileHover={{ y: -5, scale: 1.02 }} className="relative rounded-3xl overflow-hidden group cursor-pointer border border-[var(--outline-variant)] h-[240px]">
-                <Image src="/images/deep_space.png" alt="Deep Space Sigma" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <Image src={`${BASE_PATH}/images/deep_space.png`} alt="Deep Space Sigma" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-black/10" />
                 <div className="absolute bottom-0 left-0 p-6 z-10">
                   <div className="text-[10px] font-bold tracking-widest text-indigo-400 mb-2 uppercase flex items-center"><Layers size={12} className="mr-1" /> {t('projects.card3.badge')}</div>
@@ -236,7 +238,7 @@ export default function Home() {
 
               {/* Bottom Wide Card */}
               <motion.div whileHover={{ y: -5 }} className="md:col-span-2 relative rounded-3xl overflow-hidden group cursor-pointer border border-[var(--outline-variant)] h-[240px]">
-                <Image src="/images/monolith.png" alt="Monolith Study" fill className="object-cover transition-transform duration-1000 group-hover:scale-105 group-hover:rotate-1" />
+                <Image src={`${BASE_PATH}/images/monolith.png`} alt="Monolith Study" fill className="object-cover transition-transform duration-1000 group-hover:scale-105 group-hover:rotate-1" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-8 w-full flex justify-between items-end z-10">
                   <div>
