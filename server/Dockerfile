@@ -20,6 +20,9 @@ RUN uv sync --frozen --no-cache
 # Copy project source code
 COPY . .
 
+# Pre-download YOLO weights at build time (not stored in Git)
+RUN uv run python -c "from ultralytics import YOLO; YOLO('yolov8s.pt'); YOLO('yolov8s-world.pt')"
+
 # Ensure uploads directory exists
 RUN mkdir -p uploads
 
