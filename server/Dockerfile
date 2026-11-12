@@ -13,11 +13,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install uv package manager
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Install python dependencies (use CPU-only PyTorch to save ~5GB of disk space)
+# Install python dependencies (use CPU-only PyTorch and opencv-python-headless to save disk space)
 COPY pyproject.toml ./
 RUN uv venv && \
     uv pip install --no-cache torch torchvision --index-url https://download.pytorch.org/whl/cpu && \
-    uv pip install --no-cache -r pyproject.toml
+    uv pip install --no-cache -r pyproject.toml && \
+    find /app/.venv -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 
 # Copy project source code
 COPY . .
